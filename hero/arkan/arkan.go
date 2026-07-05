@@ -1,7 +1,7 @@
 // Package arkan implements the Arkan-Dokumentar hero.
 package arkan
 
-import "github.com/codera/battle/internal"
+import "codera-battle/internal"
 
 // Equipment represents an item a hero can wear.
 type Equipment struct {
