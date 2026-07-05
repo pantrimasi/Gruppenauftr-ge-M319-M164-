@@ -1,3 +1,4 @@
+// Package arkan implements the Arkan-Dokumentar hero.
 package arkan
 
 import "github.com/codera/battle/internal"
