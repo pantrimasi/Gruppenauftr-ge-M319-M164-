@@ -1,111 +1,57 @@
-# Codera Battle – Gruppenauftrag (M319 / M164)
+# Codera Battle
 
-## Codera Battle – rundenbasiertes Kampfsystem mit Datenbankanbindung
+*Ein rundenbasiertes Kampfsystem in Go, entwickelt als Abschlussauftrag für die Module M319 und M164.*
 
-## Kurzbeschreibung
-*Codera Battle ist ein Schulprojekt, das die Module M319 (Programmieren in Go) und M164 (Datenbanken) kombiniert. Entwickelt wird ein CLI-basiertes, rundenbasiertes Kampfsystem mit PostgreSQL-Datenbank via Docker.*
+## Überblick
 
----
+Codera Battle ist ein Kommandozeilen Spiel, bei dem eine Gruppe von Helden gemeinsam gegen den Entropie Drachen antritt. Jedes Gruppenmitglied hat einen eigenen Helden Charakter mit individuellen Stats, Ausrüstung und Skills implementiert. Die Helden werden aus einer PostgreSQL Datenbank geladen, der Kampf selbst läuft rundenbasiert ab und die Reihenfolge der Züge richtet sich nach dem Speed Wert jedes Kämpfers. Schaden, Genauigkeit und kritische Treffer werden über Zufallszahlen berechnet.
 
-## 1. Projektübersicht
+Der Drache ist vollständig vorgegeben und wird nicht verändert, die Helden Charaktere sowie die Kampf Logik wurden von der Gruppe selbst entwickelt.
 
-Die Gruppe entwickelt gemeinsam ein rundenbasiertes Kampfspiel, das in der Kommandozeile läuft. Jeder Charakter besitzt eigene Stats, Ausrüstung und Skills und wird in einer PostgreSQL-Datenbank gespeichert, die lokal über Docker betrieben wird.
+## Rollen und Zuständigkeiten
 
-Alle Spieler treten gemeinsam gegen den Entropie-Drachen an, der fix vorgegeben ist und nicht verändert werden darf. Die Zugreihenfolge richtet sich nach dem Speed-Wert. Schaden, Trefferchance und kritische Treffer werden zufällig berechnet.
+| Person | Rolle | Zuständigkeit |
+|---|---|---|
+| Masato | Arkan-Dokumentar | Codequalität, C4 Diagramme, Linter, eigener Charakter |
+| Angelos | Daten-Druide | GORM Modelle, Datenbankanbindung, eigener Charakter |
+| Lazar | Funktions-Krieger | Kampf Loop, Goroutines, eigener Charakter |
 
----
+## Installation
 
-## 2. Rollen und Aufgaben
+Voraussetzung ist eine installierte Go Version sowie eine laufende PostgreSQL Instanz, entweder lokal oder über Docker.
 
-### Masato – Arkan-Dokumentar
-Masato ist verantwortlich für die technische Struktur und Qualität des gesamten Projekts.
+Repository klonen:
 
-Er übernimmt folgende Aufgaben:
-- Einrichtung des Git-Repositories
-- Definition der Branching-Strategie
-- Sicherstellen, dass alle den Linter verwenden
-- Erstellung der C4-Architekturdiagramme
-- Dokumentation des gesamten Systems
-- Überprüfung von Codequalität und Struktur
-- Implementierung eines eigenen Magier-Charakters
+    git clone https://github.com/AngelosDaroukakis/Gruppenauftr-ge-M319-M164-.git
+    cd Gruppenauftr-ge-M319-M164-
 
----
+Abhängigkeiten installieren:
 
-### Angelos – Daten-Druide
-Angelos ist verantwortlich für die gesamte Datenbank- und Go-Datenebene.
+    go mod tidy
 
-Er übernimmt folgende Aufgaben:
-- Erstellung der GORM-Modelle
-- Aufbau der Datenbankverbindung in Go
-- Entwicklung der Seed-Daten
-- Setup eines PostgreSQL-Containers via Docker
-- Erstellung und Dokumentation des ERD
-- Sicherstellen, dass andere die Datenbank reproduzieren können
+## Konfiguration
 
----
+Die Datei .env-example im Root kopieren und in .env umbenennen, danach die eigenen Datenbank Zugangsdaten eintragen.
 
-### Lazar – Funktions-Krieger
-Lazar ist verantwortlich für die Kernlogik des Spiels.
+    DB_HOST=localhost
+    DB_PORT=5432
+    DB_USER=codera
+    DB_PASSWORD=codera
+    DB_NAME=codera
 
-Er übernimmt folgende Aufgaben:
-- Implementierung des Kampf-Systems (Combat Loop)
-- Steuerung der Spiel-Logik im CLI
-- Integration von Zufallssystemen (Damage, Hit-Chance, Crits)
-- Einsatz von Goroutines für parallele Abläufe
-- Absicherung gemeinsamer Ressourcen mit Mutex
-- Testen der Datenbankverbindung
-- Validierung der Datenbankabfragen
+## Programm starten
 
----
+    go run main.go
 
-## 3. Spielsystem (M319)
+Das Programm lädt beim Start automatisch die Helden aus der Datenbank, initialisiert den Drachen und startet den Kampf in der Kommandozeile.
 
-Das Kampfsystem basiert auf rundenbasierten Kämpfen in der Kommandozeile.
+## Tests ausführen
 
-Wichtige Mechaniken:
-- Speed-Wert bestimmt Zugreihenfolge
-- RNG steuert Schaden, Treffer und kritische Treffer
-- Jeder Spieler hat einen eigenen Helden als separates Go-Paket
-- Der Entropie-Drache ist der finale Gegner und fix vorgegeben
+    go test ./...
 
----
+## Linter Setup
 
-## 4. Datenbanksystem (M164)
-
-Jede Person betreibt eine lokale PostgreSQL-Instanz via Docker.
-
-Gemeinsam werden folgende Schritte umgesetzt:
-- Erstellung eines ERD (Entity Relationship Diagram)
-- Umsetzung in ein relationales Schema
-- Erstellung der Tabellen via DDL
-- Befüllung mit Seed-Daten
-- Durchführung von JOIN- und Filterabfragen
-- Export und Reimport als SQL-Dump
-
----
-
-## 5. Abgabeanforderungen
-
-Die Abgabe erfolgt über ein Git-Repository mit vollständiger Historie.
-
-Erforderlich sind:
-- Vollständige Git-History mit nachvollziehbaren Beiträgen
-- C4-Diagramme
-- Gruppendokumentation
-- Unit Tests
-- Godoc-Dokumentation
-- SQL-Skripte (DDL, Seed, Queries, Dump)
-- Saubere Projektstruktur
-
-Fehlende oder nicht nachvollziehbare Beiträge können zu Notenabzug für die gesamte Gruppe führen.
-
-## 6. Linter Setup
-
-### Voraussetzung
-
-Go muss installiert sein und im PATH verfügbar sein.
-
-### Installation
+Jede Person im Team installiert den Linter lokal auf dem eigenen Rechner.
 
 Modul Support aktivieren:
 
@@ -115,18 +61,37 @@ Linter installieren:
 
     go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
-Installation prüfen:
-
-    golangci-lint --version
-
-### Verwendung
-
-Im Root des Projekts ausführen, dort wo auch die go.mod liegt:
+Linter ausführen, im Root des Projekts:
 
     golangci-lint run
 
-Der Linter zeigt danach alle Findings basierend auf der Konfiguration in .golangci.yml an.
+Die genauen Regeln sind in der Datei .golangci.yml hinterlegt.
 
-### Häufiger Fehler
+## Branching Strategie
 
-Falls beim Installieren die Meldung "modules disabled by GO111MODULE=off" erscheint, muss GO111MODULE zuerst wie oben beschrieben auf on gesetzt werden, bevor der Install Befehl erneut ausgeführt wird.
+Wir arbeiten nach GitHub Flow, erweitert um einen zusätzlichen develop Branch. Jede Person hat ihren eigenen Feature Branch, fertige Arbeit wird über einen Pull Request zuerst nach develop gemerged. Erst wenn develop stabil ist, geht es gemeinsam nach main. Direktes Pushen auf main oder develop ist über Branch Protection Rules gesperrt, jeder Merge braucht mindestens eine Freigabe.
+
+## Clean Code
+
+Wer am Projekt mitarbeitet, folgt diesen Regeln:
+
+- Immer auf dem eigenen Feature Branch arbeiten
+- Commit Nachrichten nach Conventional Commits, zum Beispiel feat, fix, docs
+- Jeder Commit auf main oder develop muss mit go build ./... fehlerfrei kompilieren
+- Vor jedem Pull Request den Linter laufen lassen
+- Clean Code Regeln aus .opencode/rules.md beachten
+
+## Projektstruktur
+
+    main.go            Startpunkt des Programms
+    combat/            Kampf Loop und Regeln
+    dragon/            Vorgegebener Drache, wird nicht verändert
+    hero/              Helden Charaktere, ein Paket pro Rolle
+    internal/          Combatant Interface und gemeinsame Typen
+    db/                GORM Modelle, Datenbankverbindung und Seeds
+
+## Lizenz und Credits
+
+Dieses Projekt entstand im Rahmen der Ausbildung als Schulauftrag und dient ausschliesslich Lernzwecken.
+
+Entwickelt von Masato, Angelos und Lazar.
