@@ -97,3 +97,39 @@ func (h *Hero) GetMaxHP() int {
 func (h *Hero) IsAlive() bool {
 	return h.CurrentHP > 0
 }
+
+// ChooseAction decides which skill to use based on ally HP
+func (h *Hero) ChooseAction(allies []internal.Combatant) Skill {
+	weakest := findWeakestAlly(allies)
+
+	// heal check
+	if weakest != nil && isCritical(weakest) {
+		return h.Skills[2]
+	}
+
+	return h.Skills[0]
+}
+
+// findWeakestAlly returns the ally with lowest HP
+func findWeakestAlly(allies []internal.Combatant) internal.Combatant {
+	var weakest internal.Combatant
+	lowest := -1
+
+	for _, ally := range allies {
+		if !ally.IsAlive() {
+			continue
+		}
+		if lowest == -1 || ally.GetCurrentHP() < lowest {
+			lowest = ally.GetCurrentHP()
+			weakest = ally
+		}
+	}
+
+	return weakest
+}
+
+// isCritical checks if HP is below 30 percent
+func isCritical(c internal.Combatant) bool {
+	threshold := float64(c.GetMaxHP()) * 0.3
+	return float64(c.GetCurrentHP()) < threshold
+}

@@ -98,3 +98,35 @@ Erforderlich sind:
 - Saubere Projektstruktur
 
 Fehlende oder nicht nachvollziehbare Beiträge können zu Notenabzug für die gesamte Gruppe führen.
+
+## 6. Linter Setup
+
+### Voraussetzung
+
+Go muss installiert sein und im PATH verfügbar sein.
+
+### Installation
+
+Modul Support aktivieren:
+
+    set GO111MODULE=on
+
+Linter installieren:
+
+    go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+Installation prüfen:
+
+    golangci-lint --version
+
+### Verwendung
+
+Im Root des Projekts ausführen, dort wo auch die go.mod liegt:
+
+    golangci-lint run
+
+Der Linter zeigt danach alle Findings basierend auf der Konfiguration in .golangci.yml an.
+
+### Häufiger Fehler
+
+Falls beim Installieren die Meldung "modules disabled by GO111MODULE=off" erscheint, muss GO111MODULE zuerst wie oben beschrieben auf on gesetzt werden, bevor der Install Befehl erneut ausgeführt wird.
