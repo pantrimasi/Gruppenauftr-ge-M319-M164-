@@ -20,14 +20,14 @@ type DragonSkill struct {
 
 // EntropyDragon is the final boss of Codera.
 type EntropyDragon struct {
-	mu       sync.Mutex
-	Name     string
-	MaxHP    int
+	mu        sync.Mutex
+	Name      string
+	MaxHP     int
 	CurrentHP int
-	Attack   int
-	Defense  int
-	Speed    int
-	Skills   []DragonSkill
+	Attack    int
+	Defense   int
+	Speed     int
+	Skills    []DragonSkill
 	IsEnraged bool
 
 	turnsSinceHeal int
@@ -38,12 +38,12 @@ var _ internal.Combatant = (*EntropyDragon)(nil)
 
 func New() *EntropyDragon {
 	return &EntropyDragon{
-		Name:     "Entropie-Drache",
-		MaxHP:    450,
+		Name:      "Entropie-Drache",
+		MaxHP:     450,
 		CurrentHP: 450,
-		Attack:   30,
-		Defense:  18,
-		Speed:    14,
+		Attack:    30,
+		Defense:   18,
+		Speed:     14,
 		Skills: []DragonSkill{
 			{
 				Name:        "Entropy Claw",
@@ -85,7 +85,7 @@ func New() *EntropyDragon {
 	}
 }
 
-func (d *EntropyDragon) GetName() string            { return d.Name }
+func (d *EntropyDragon) GetName() string { return d.Name }
 func (d *EntropyDragon) GetStats() internal.Stats {
 	return internal.Stats{
 		MaxHP:   d.MaxHP,
@@ -99,7 +99,7 @@ func (d *EntropyDragon) GetCurrentHP() int {
 	defer d.mu.Unlock()
 	return d.CurrentHP
 }
-func (d *EntropyDragon) GetMaxHP() int              { return d.MaxHP }
+func (d *EntropyDragon) GetMaxHP() int { return d.MaxHP }
 func (d *EntropyDragon) IsAlive() bool {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -167,11 +167,11 @@ func (d *EntropyDragon) ChooseAction(heroCount int) (DragonSkill, int) {
 		case roll < 0.75:
 			return d.Skills[1], rand.Intn(heroCount) // Null Pointer Breath
 		case roll < 0.90:
-			return d.Skills[2], -1                  // Stack Overflow (AoE)
+			return d.Skills[2], -1 // Stack Overflow (AoE)
 		default:
 			if d.turnsSinceHeal >= 4 {
 				d.turnsSinceHeal = 0
-				return d.Skills[3], -1              // Corrupted Code
+				return d.Skills[3], -1 // Corrupted Code
 			}
 			return d.Skills[0], rand.Intn(heroCount)
 		}
@@ -185,11 +185,11 @@ func (d *EntropyDragon) ChooseAction(heroCount int) (DragonSkill, int) {
 	case roll < 0.55:
 		return d.Skills[1], rand.Intn(heroCount) // Null Pointer Breath
 	case roll < 0.75:
-		return d.Skills[2], -1                  // Stack Overflow (AoE)
+		return d.Skills[2], -1 // Stack Overflow (AoE)
 	default:
 		if d.turnsSinceHeal >= 4 {
 			d.turnsSinceHeal = 0
-			return d.Skills[3], -1              // Corrupted Code
+			return d.Skills[3], -1 // Corrupted Code
 		}
 		return d.Skills[0], rand.Intn(heroCount)
 	}

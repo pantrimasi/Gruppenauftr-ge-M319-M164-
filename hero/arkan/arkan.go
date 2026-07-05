@@ -54,7 +54,7 @@ func NewHero(name string) *Hero {
 		{Name: "Klaerende Annotation", Healing: 25, Accuracy: 1.0, Target: "single_ally", Description: "Heilt einen Verbuendeten"},
 	}
 
-	// apply equipment bonus
+	// apply equipment bonus.
 	totalHP := stats.MaxHP + accessory.HPBonus
 
 	return &Hero{
@@ -98,7 +98,7 @@ func (h *Hero) IsAlive() bool {
 	return h.CurrentHP > 0
 }
 
-// ChooseAction decides which skill to use based on ally HP
+// ChooseAction decides which skill to use based on ally HP.
 func (h *Hero) ChooseAction(allies []internal.Combatant) Skill {
 	weakest := findWeakestAlly(allies)
 
@@ -110,7 +110,7 @@ func (h *Hero) ChooseAction(allies []internal.Combatant) Skill {
 	return h.Skills[0]
 }
 
-// findWeakestAlly returns the ally with lowest HP
+// findWeakestAlly returns the ally with lowest HP.
 func findWeakestAlly(allies []internal.Combatant) internal.Combatant {
 	var weakest internal.Combatant
 	lowest := -1
@@ -128,7 +128,7 @@ func findWeakestAlly(allies []internal.Combatant) internal.Combatant {
 	return weakest
 }
 
-// isCritical checks if HP is below 30 percent
+// isCritical checks if HP is below 30 percent.
 func isCritical(c internal.Combatant) bool {
 	threshold := float64(c.GetMaxHP()) * 0.3
 	return float64(c.GetCurrentHP()) < threshold
