@@ -17,3 +17,31 @@ type Combatant interface {
 	GetMaxHP() int
 	IsAlive() bool
 }
+
+// TargetType beschreibt, wen ein Skill treffen kann.
+type TargetType string
+
+const (
+	TargetSingleEnemy TargetType = "single_enemy"
+	TargetAllEnemies  TargetType = "all_enemies"
+	TargetSelf        TargetType = "self"
+	TargetSingleAlly  TargetType = "single_ally"
+	TargetAllAllies   TargetType = "all_allies"
+)
+
+// Skill beschreibt eine Kampffähigkeit.
+type Skill struct {
+	Name        string
+	Description string
+	DamageMin   int
+	DamageMax   int
+	Healing     int
+	Accuracy    float64
+	Target      TargetType
+}
+
+// SkillUser wird von Helden implementiert, die aktive Skills besitzen.
+type SkillUser interface {
+	GetSkills() []Skill
+	OnTurnStart()
+}
