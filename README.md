@@ -69,7 +69,7 @@ Die genauen Regeln sind in der Datei .golangci.yml hinterlegt.
 
 ## Branching Strategie
 
-Wir arbeiten nach GitHub Flow, erweitert um einen zusätzlichen develop Branch. Jede Person hat ihren eigenen Feature Branch, fertige Arbeit wird über einen Pull Request zuerst nach develop gemerged. Erst wenn develop stabil ist, geht es gemeinsam nach main. Direktes Pushen auf main oder develop ist über Branch Protection Rules gesperrt, jeder Merge braucht mindestens eine Freigabe.
+Wir arbeiten nach GitHub Flow. Jede Person hat ihren eigenen Feature Branch, fertige Arbeit wird über einen Pull Request nach main gemerged. Direktes Pushen auf main ist über Branch Protection Rules gesperrt, jeder Merge braucht mindestens eine Freigabe.
 
 ## Clean Code
 
@@ -77,7 +77,7 @@ Wer am Projekt mitarbeitet, folgt diesen Regeln:
 
 - Immer auf dem eigenen Feature Branch arbeiten
 - Commit Nachrichten nach Conventional Commits, zum Beispiel feat, fix, docs
-- Jeder Commit auf main oder develop muss mit go build ./... fehlerfrei kompilieren
+- Jeder Commit auf main muss mit go build ./... fehlerfrei kompilieren
 - Vor jedem Pull Request den Linter laufen lassen
 - Clean Code Regeln aus .opencode/rules.md beachten
 
@@ -94,4 +94,4 @@ Wer am Projekt mitarbeitet, folgt diesen Regeln:
 
 Dieses Projekt entstand im Rahmen der Ausbildung als Schulauftrag und dient ausschliesslich Lernzwecken.
 
-Entwickelt von Masato, Angelos und Lazar.
+Entwickelt von Masato , Angelos und Lazar.

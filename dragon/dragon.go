@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"sync"
 
-	"github.com/codera/battle/internal"
+	"codera-battle/internal"
 )
 
 // DragonSkill defines an attack or ability of the Entropy Dragon.
