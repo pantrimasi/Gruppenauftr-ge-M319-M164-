@@ -36,12 +36,12 @@ import (
 
 // equipment holds the stat bonuses granted by one piece of gear.
 type equipment struct {
-	name        string
-	itemType    string // "weapon" | "armor" | "accessory"
-	bonusATK    int
-	bonusDEF    int
-	bonusSPD    int
-	bonusMaxHP  int
+	name       string
+	itemType   string // "weapon" | "armor" | "accessory"
+	bonusATK   int
+	bonusDEF   int
+	bonusSPD   int
+	bonusMaxHP int
 }
 
 // loadout returns the three pieces of gear worn by the Funktions-Krieger.
