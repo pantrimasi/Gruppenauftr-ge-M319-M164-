@@ -1,0 +1,23 @@
+linters:
+  enable:
+    - gofmt
+    - govet
+    - errcheck
+    - godot
+    - godox
+
+linters-settings:
+  godot:
+    scope: declarations
+
+issues:
+  exclude-rules:
+    - path: dragon.go
+      linters:
+        - gofmt
+    - path: main.go
+      linters:
+        - godox
+    - path: combat/combat.go
+      linters:
+        - godox
